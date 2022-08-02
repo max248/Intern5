@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Send Message Form</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <link th:href="@{/css/toast.css}" rel="stylesheet">
@@ -17,13 +17,14 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a href="#" class="navbar-brand">
-        <img src="/img/itw-logo.png" width="30" height="30" alt="" style="padding-right: 3px" class="d-inline-block align-top" />IT Wonders</a>
+        <img th:src="@{/img/itransition.jpg}" width="40" height="40" alt="" style="padding-right: 3px" class="d-inline-block align-top" />Itransition</a>
     <button type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div id="navbarNavDropdown" class="collapse navbar-collapse">
         <ul class="navbar-nav">
-            <li class="nav-item"><label  th:text="${username}"></label></li>
+            <li class="nav-item"><a href="#" class="nav-link"><label style="color: #ffffff; font-size: 16px;" th:text="${username}"></label></a></li>
+            <li class="nav-item"><a href="/" class="nav-link"><label style="color: #ffffff; font-size: 16px;">Logout</label></a></li>
         </ul>
     </div>
 </nav>
@@ -47,7 +48,7 @@
                         <textarea class="form-control" id="content" name="content" rows="4" required></textarea>
                         <label class="form-label" for="content">Message</label>
                     </div>
-                    <button type="button" onclick="sendMessage()" class="btn btn-success">Submit</button>
+                    <button type="button" onclick="sendMessage()" class="btn btn-success">Send</button>
                 </form>
             </div>
 
@@ -64,10 +65,10 @@
                             <th style="width: 15%;">Date</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="bodyTable" class="bodyTable">
                         <tr th:each="message: ${messagesList}">
                             <td th:text="${message.senderUser.username}">Sender</td>
-                            <td class="theme" th:text="${message.theme}"><span class="click">Theme</span>Theme</td>
+                            <td class="theme" th:text="${message.theme}"><span class="click">Theme</span></td>
                             <td class="content"th:text="${message.content}">Content</td>
                             <td th:text="${message.sendDate}">A4</td>
                         </tr>
@@ -83,6 +84,21 @@
     <div class="toast__header">Заголовок</div>
     <div class="toast__body">Сообщение...</div>
     <button class="toast__close" type="button"></button>
+</div>
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label id="modal_textarea" name="modal_textarea"> </label>
+            </div>
+        </div>
+    </div>
 </div>
 <style>
     .tableFixHead {
@@ -113,9 +129,24 @@
 </style>
 
 <script>
-
+    $(function() {
+        $('#myTable td').click(function() {
+                var self = $(this).closest("tr");
+                var content = self.find(".content").text();
+                var theme = self.find(".theme").text();
+                viewModal(content,theme);
+            // console.log("theme: " + theme + " conent: " + content);
+            // alert("HTML: " +$(this).html());
+            // alert("Cell Index: " + $(this).index());
+            // alert("Row Index: " + $(this).closest('tr').index());
+        });
+    });
+    $('#myTable').on('click-row.bs.table', function (e, row, $element) {
+        console.log("Click: " + row, $element);
+    });
     $( document ).ready(function() {
         $("#myTable").on('click', '.click', function() {
+            console.log("click")
             var self = $(this).closest("tr");
             var content = self.find(".content").text();
             var theme = self.find(".theme").text();
@@ -164,7 +195,6 @@
                     '<td class="content">' + response[i].content + '</td>' +
                     '<td>' + response[i].sendDate + '</td>' +
                     '</tr>');
-              console.log("status: " + response[i].readStatus);
             if(!response[i].readStatus){
                 new Toast({
                     title: response[i].theme,
@@ -199,7 +229,7 @@
         });
     });
 
-    $(function () {
-        $('select').selectpicker();
-    });
+    // $(function () {
+    //     $('select').selectpicker();
+    // });
 </script>
