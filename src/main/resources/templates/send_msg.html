@@ -34,7 +34,6 @@
             <div class="h1 mt-5 text-center">Send message</div>
 
             <div class="container">
-                <h2>Stacked form</h2>
                 <form method="post" th:action="@{/send_message}">
                     <select class="form-control selectpicker" id="receiverId" name="receiverId" data-live-search="true" required>
                         <option th:each="user : ${usersList}" th:value="${user.id}" th:text="${user.username}"> </option>
