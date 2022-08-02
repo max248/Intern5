@@ -84,7 +84,7 @@ public class MainController {
             model.addAttribute("messagesList",messagesList);
         }
 
-        return "send_message";
+        return "send_msg";
     }
 
     @PostMapping("/list_message")
@@ -93,7 +93,8 @@ public class MainController {
         if(httpSession != null && httpSession.getAttribute("username") != null){
             String username = httpSession.getAttribute("username") != null ? httpSession.getAttribute("username").toString() : "";
             Users user = userRepository.findByUserName(username);
-            List<Messages> messagesList = messageRepository.findMessagesByReceiverID(user.getId());
+            List<Messages> messagesList = messageRepository.findNewMessagesByReceiverID(user.getId());
+            messageRepository.updateReadStatus(user.getId());
             model.addAttribute("messagesList",messagesList);
             Gson gson = new Gson();
             response.setCharacterEncoding("UTF-8");
