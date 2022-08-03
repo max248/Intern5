@@ -25,7 +25,7 @@ public class MainController {
     private UserRepository userRepository;
     @Autowired
     private MessageRepository messageRepository;
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
     @GetMapping("")
