@@ -32,7 +32,7 @@
     <div class="row">
         <div class="w-100 px-2">
             <div class="h1 mt-5 text-center">Send message</div>
-
+            <input type="text" hidden th:value="${userId}" id="userId" name="userId"/>
             <div class="container">
                 <form method="post" th:action="@{/send_message}">
                     <label class="form-label" for="receiverId">Receiver</label>
@@ -149,10 +149,11 @@
         });
     });
     function sendMessage(){
+        var userId = $('#userId').val();
         var selectId = $('#receiverId').val();
         var theme = $('#theme').val();
         var content = $('#content').val();
-        var data = 'receiverId=' + selectId + '&theme=' + theme + '&content=' + content;
+        var data = 'receiverId=' + selectId + '&theme=' + theme + '&content=' + content + '&userId=' + userId;
         if(theme.length == 0 || content.length == 0){
             alert("Theme or content is null");
             return;
@@ -176,8 +177,9 @@
         window.location.reload();
     }
     setInterval(function(){
-        console.log("count");
-      var data = "";
+        var userId = $("#userId").val()
+        console.log("count userId: " + userId);
+      var data =  'userId=' + userId;
       $.ajax({
         url: "/list_message",
         type: "POST",

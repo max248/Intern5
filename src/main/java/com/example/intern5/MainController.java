@@ -91,9 +91,11 @@ public class MainController {
     public void listMessages(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
         HttpSession httpSession = request.getSession();
         System.out.println("listMessages");
-        if(httpSession != null && httpSession.getAttribute("userId") != null){
+        String userId = request.getParameter("userId") != null ? request.getParameter("userId") .toString() : "";
+        System.out.println("userId: " + userId);
+        if(httpSession != null && httpSession.getAttribute("userId") != null && userId.length()>0){
             System.out.println("listMessages: " + httpSession.getAttribute("username"));
-            Users user = userRepository.findUserById(Long.valueOf(httpSession.getAttribute("userId").toString()));
+            Users user = userRepository.findUserById(Long.parseLong(userId));
             List<Messages> messagesList = messageRepository.findNewMessagesByReceiverID(user.getId());
             messageRepository.updateReadStatus(user.getId());
             model.addAttribute("messagesList",messagesList);
