@@ -90,15 +90,10 @@ public class MainController {
     @PostMapping("/list_message")
     public void listMessages(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
         HttpSession httpSession = request.getSession();
-        System.out.println("listMessages");
         String userId = request.getParameter("userId") != null ? request.getParameter("userId") .toString() : "";
-        System.out.println("userId: " + userId);
         if(userId.length()>0){
-            System.out.println("listMessages: " + httpSession.getAttribute("username"));
             Users user = userRepository.findUserById(Long.parseLong(userId));
-            System.out.println("user: " + user.getUsername());
             List<Messages> messagesList = messageRepository.findNewMessagesByReceiverID(user.getId());
-            System.out.println("messagesList: " + messagesList.size());
             messageRepository.updateReadStatus(user.getId());
             model.addAttribute("messagesList",messagesList);
             request.setAttribute("messagesList",messagesList);
