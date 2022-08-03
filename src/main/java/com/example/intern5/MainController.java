@@ -101,7 +101,6 @@ public class MainController {
             }
             model.addAttribute("messagesList",messagesList);
             request.setAttribute("messagesList",messagesList);
-
             Gson gson = new Gson();
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
