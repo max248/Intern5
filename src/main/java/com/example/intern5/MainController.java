@@ -48,7 +48,9 @@ public class MainController {
         messages.setContent(content);
         Date date = new Date();
         messages.setSendDate(formatter.format(date));
-        messages.setSenderUser(userRepository.findUserById(Long.valueOf(session.getAttribute("userId").toString())));
+        String userId = request.getParameter("userId") != null ? request.getParameter("userId") .toString() : "";
+        if(userId.length()>0)
+        messages.setSenderUser(userRepository.findUserById(Long.parseLong(userId)));
         messageRepository.save(messages);
         List<Messages> messagesList = messageRepository.findAll();
         Gson gson = new Gson();
