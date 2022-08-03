@@ -13,7 +13,7 @@ public interface MessageRepository extends JpaRepository<Messages, Long> {
     @Query("SELECT m from Messages m where m.receiverUser.id = ?1 ")
     List<Messages> findMessagesByReceiverID(Long receiverId);
 
-    @Query("SELECT m from Messages m where m.receiverUser.id = ?1 and m.readStatus is false and m.senderUser.id = ?1")
+    @Query("SELECT m from Messages m where m.receiverUser.id = ?1 and m.readStatus is false and m.senderUser.id <> ?1")
     List<Messages> findNewMessagesByReceiverID(Long receiverId);
 
     @Modifying
