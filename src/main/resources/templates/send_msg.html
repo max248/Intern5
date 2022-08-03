@@ -35,6 +35,7 @@
 
             <div class="container">
                 <form method="post" th:action="@{/send_message}">
+                    <label class="form-label" for="receiverId">Receiver</label>
                     <select class="form-control selectpicker" id="receiverId" name="receiverId" data-live-search="true" required>
                         <option th:each="user : ${usersList}" th:value="${user.id}" th:text="${user.username}"> </option>
                     </select>
