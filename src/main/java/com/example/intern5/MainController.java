@@ -96,9 +96,13 @@ public class MainController {
         if(httpSession != null && httpSession.getAttribute("userId") != null && userId.length()>0){
             System.out.println("listMessages: " + httpSession.getAttribute("username"));
             Users user = userRepository.findUserById(Long.parseLong(userId));
+            System.out.println("user: " + user.getUsername());
             List<Messages> messagesList = messageRepository.findNewMessagesByReceiverID(user.getId());
+            System.out.println("messagesList: " + messagesList.size());
             messageRepository.updateReadStatus(user.getId());
             model.addAttribute("messagesList",messagesList);
+            request.setAttribute("messagesList",messagesList);
+
             Gson gson = new Gson();
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
