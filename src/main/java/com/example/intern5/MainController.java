@@ -93,7 +93,7 @@ public class MainController {
         System.out.println("listMessages");
         String userId = request.getParameter("userId") != null ? request.getParameter("userId") .toString() : "";
         System.out.println("userId: " + userId);
-        if(httpSession != null && httpSession.getAttribute("userId") != null && userId.length()>0){
+        if(userId.length()>0){
             System.out.println("listMessages: " + httpSession.getAttribute("username"));
             Users user = userRepository.findUserById(Long.parseLong(userId));
             System.out.println("user: " + user.getUsername());
