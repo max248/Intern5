@@ -96,7 +96,9 @@ public class MainController {
         if(userId.length()>0){
             Users user = userRepository.findUserById(Long.parseLong(userId));
             List<Messages> messagesList = messageRepository.findNewMessagesByReceiverID(user.getId());
-            messageRepository.updateReadStatus(user.getId());
+            for(int i=0;i<messagesList.size();i++){
+                messageRepository.updateReadStatus(messagesList.get(i).getId());
+            }
             model.addAttribute("messagesList",messagesList);
             request.setAttribute("messagesList",messagesList);
 

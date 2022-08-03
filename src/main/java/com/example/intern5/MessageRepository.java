@@ -17,7 +17,7 @@ public interface MessageRepository extends JpaRepository<Messages, Long> {
     List<Messages> findNewMessagesByReceiverID(Long receiverId);
 
     @Modifying
-    @Query("UPDATE Messages m SET m.readStatus = true where m.receiverUser.id = ?1 and m.readStatus is false")
+    @Query("UPDATE Messages m SET m.readStatus = true where m.id = ?1")
     @Transactional
-    void updateReadStatus(Long receiverId);
+    void updateReadStatus(Long id);
 }
