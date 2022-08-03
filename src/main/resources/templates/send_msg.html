@@ -183,7 +183,7 @@
         type: "POST",
         data: data,
         success: function (response){
-          // $("#myTable > tbody").html("");
+            console.log("response: " + response);
           for(var i=0;i<response.length;i++){
             $('#myTable tbody').append('<tr>' +
                     '<td>' + response[i].senderUser.username + '</td>' +
