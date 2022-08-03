@@ -79,7 +79,6 @@
         </div>
     </div>
 </div>
-<!-- с заголовком -->
 <div class="toast toast_default">
     <div class="toast__header">Заголовок</div>
     <div class="toast__body">Сообщение...</div>
@@ -135,10 +134,6 @@
                 var content = self.find(".content").text();
                 var theme = self.find(".theme").text();
                 viewModal(content,theme);
-            // console.log("theme: " + theme + " conent: " + content);
-            // alert("HTML: " +$(this).html());
-            // alert("Cell Index: " + $(this).index());
-            // alert("Row Index: " + $(this).closest('tr').index());
         });
     });
     $('#myTable').on('click-row.bs.table', function (e, row, $element) {
