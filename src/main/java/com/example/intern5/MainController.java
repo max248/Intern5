@@ -52,7 +52,7 @@ public class MainController {
         if(userId.length()>0)
         messages.setSenderUser(userRepository.findUserById(Long.parseLong(userId)));
         messageRepository.save(messages);
-        List<Messages> messagesList = messageRepository.findAll();
+        List<Messages> messagesList = messageRepository.findMessagesByReceiverID(Long.valueOf(userId));
         Gson gson = new Gson();
         response.getWriter().write(gson.toJson(messagesList));
     }
