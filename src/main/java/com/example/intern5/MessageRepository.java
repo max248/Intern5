@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Messages, Long> {
-    @Query("SELECT m from Messages m where m.receiverUser.id = ?1 and m.readStatus is false")
+    @Query("SELECT m from Messages m where m.receiverUser.id = ?1 and m.readStatus is true ")
     List<Messages> findMessagesByReceiverID(Long receiverId);
 
     @Query("SELECT m from Messages m where m.receiverUser.id = ?1 ")
