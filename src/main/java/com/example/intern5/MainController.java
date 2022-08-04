@@ -57,8 +57,8 @@ public class MainController {
         response.getWriter().write(gson.toJson(messagesList));
     }
 
-    @PostMapping("/login")
-    public String viewSendMsgPage(HttpServletRequest request, HttpServletResponse response, Model model){
+    @GetMapping("/login")
+    public String viewSendMsgPage(HttpServletRequest request, Model model){
         String username = request.getParameter("username");
         HttpSession httpSession = request.getSession();
         httpSession.setAttribute("username",username);
